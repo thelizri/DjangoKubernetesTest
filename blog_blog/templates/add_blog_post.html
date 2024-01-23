@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Blogging{% endblock %} 
+
+{% block content %}
+<main>
+  <h1>Write your post</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+  
+</main>
+{% endblock %}

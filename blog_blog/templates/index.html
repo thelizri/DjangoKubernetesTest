@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Blog Posts{% endblock %} 
+
+{% block content %}
+<main>
+  <h1>Blog Posts</h1>
+  <ul>
+    {% for post in object_list %}
+    <li class="post-item">
+      <h2>
+        <a href="{% url 'post' post.pk %}"
+          >{{ post.title }} - {{ post.author }}</a
+        >
+      </h2>
+      <p class="post-excerpt">{{ post.content|truncatewords:5 }}</p>
+      <p class="post-date">{{ post.date_updated|date:"D d M H:i" }}</p>
+    </li>
+    {% empty %}
+    <li>No posts available.</li>
+    {% endfor %}
+  </ul>
+</main>
+{% endblock %}
