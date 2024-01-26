@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: testapp-deployment
+  name: django-deployment
   labels:
-    app: testapp
+    app: django-app
 spec:
   replicas: 1  # Number of replicas
   selector:
     matchLabels:
-      app: testapp
+      app: django-app
   template:
     metadata:
       labels:
-        app: testapp
+        app: django-app
     spec:
       containers:
-      - name: testapp-container
+      - name: django-container
         image: thelizri432/test:v3
         ports:
         - containerPort: 8000 
