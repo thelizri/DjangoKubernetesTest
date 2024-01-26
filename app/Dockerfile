@@ -9,6 +9,7 @@ COPY . /app
 
 # Install any needed packages specified in requirements.txt
 RUN pip install django
+RUN pip install whitenoise
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
