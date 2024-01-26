@@ -4,6 +4,7 @@ metadata:
   name: django-deployment
   labels:
     app: django-app
+  namespace: django
 spec:
   replicas: 1  # Number of replicas
   selector:
