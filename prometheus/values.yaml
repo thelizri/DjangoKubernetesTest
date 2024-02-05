@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=values.schema.json
-# Default values for prometheus.
+# Default values for prometheus. Modified by Karlan
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -1152,6 +1152,10 @@ serverFiles:
           - source_labels: [__meta_kubernetes_pod_node_name]
             action: replace
             target_label: node
+      - job_name: 'django' # Added by Karlan
+        metrics_path: '/metrics'
+        static_configs:
+          - targets: ['william.discworld.cc']
 
 # adds additional scrape configs to prometheus.yml
 # must be a string so you have to add a | after extraScrapeConfigs:
@@ -1251,4 +1255,3 @@ prometheus-pushgateway:
   # Optional service annotations
   serviceAnnotations:
     prometheus.io/probe: pushgateway
-
