@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django_prometheus.models import ExportModelOperationsMixin
 
 
 # Create your models here.
-class Post(models.Model):
+class Post(ExportModelOperationsMixin("post"), models.Model):
     title = models.CharField(max_length=100, unique=True)
     content = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
