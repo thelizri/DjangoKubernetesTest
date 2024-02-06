@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 {% block title %}Blog Posts{% endblock %} 
-
 {% block content %}
 <main>
   <h1>Blog Posts</h1>
   <ul>
     {% for post in object_list %}
     <li class="post-item">
-      <h2>
-        <a href="{% url 'post' post.pk %}"
-          >{{ post.title }} - {{ post.author }}</a
-        >
-      </h2>
+      <div>
+        <h3>
+          <a href="{% url 'post' post.pk %}"
+            >{{ post.title }} - {{ post.author }}</a
+          >
+        </h3>
+        <a href="{% url 'edit_post' post.pk %}">Edit</a>
+      </div>
       <p class="post-excerpt">{{ post.content|truncatewords:5 }}</p>
       <p class="post-date">{{ post.date_updated|date:"D d M H:i" }}</p>
     </li>

@@ -1153,7 +1153,7 @@ serverFiles:
             action: replace
             target_label: node
       - job_name: 'django' # Added by Karlan
-        metrics_path: '/metrics'
+        metrics_path: '/prometheus/metrics'
         static_configs:
           - targets: ['william.discworld.cc']
 

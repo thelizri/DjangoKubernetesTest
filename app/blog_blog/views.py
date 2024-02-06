@@ -1,6 +1,7 @@
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Post
+from .forms import BlogPostForm
 
 
 # Create your views here.
@@ -18,7 +19,17 @@ class PostView(DetailView):
 class AddPost(CreateView):
     model = Post
     template_name = "add_blog_post.html"
-    fields = ["title", "content"]
+    form_class = BlogPostForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+class EditPost(UpdateView):
+    model = Post
+    template_name = "edit_blog_post.html"
+    form_class = BlogPostForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user
