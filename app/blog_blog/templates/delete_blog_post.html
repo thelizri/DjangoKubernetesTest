@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Blogging{% endblock %} 
+{% block content %}
+<main>
+  <h1>Delete Post</h1>
+  <article>
+    <h2>{{ post.title }}</h2>
+    <p class="meta">
+      Posted by <span class="author">{{ post.author }}</span> on
+      <span class="date">Date {{ post.date_created|date:"D d M H:i" }}</span>
+    </p>
+    <section class="content">
+      <p>{{ post.body }}</p>
+    </section>
+  </article>
+
+  <form method="post" class="form-group">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Delete</button>
+  </form>
+</main>
+{% endblock %}
