@@ -1,5 +1,11 @@
-from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from .models import Post
 from .forms import BlogPostForm
 
@@ -34,3 +40,9 @@ class EditPost(UpdateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+class DeletePost(DeleteView):
+    model = Post
+    template_name = "delete_blog_post.html"
+    success_url = reverse_lazy("index")

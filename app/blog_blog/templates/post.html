@@ -12,7 +12,8 @@
     </article>
 
     <a class="btn btn-dark" href="{% url "index" %}">Back</a>
+    <a class="btn btn-dark" href="{% url 'edit_post' post.pk %}">Edit</a>
+    <a class="btn btn-dark" href="{% url 'delete_post' post.pk %}">Remove</a>
 
-    
 </main>
 {% endblock %}
