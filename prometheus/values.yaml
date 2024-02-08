@@ -1156,6 +1156,10 @@ serverFiles:
         metrics_path: '/prometheus/metrics'
         static_configs:
           - targets: ['william.discworld.cc']
+      - job_name: 'nodejs' # Added by Karlan
+        metrics_path: '/metrics'
+        static_configs:
+          - targets: ['william-result.discworld.cc']
 
 # adds additional scrape configs to prometheus.yml
 # must be a string so you have to add a | after extraScrapeConfigs:
