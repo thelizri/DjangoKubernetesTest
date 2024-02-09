@@ -7,15 +7,20 @@
     {% for post in object_list %}
     <li class="post-item">
       <div>
-        <h3>
+        <h4 class="d-inline">
           <a href="{% url 'post' post.pk %}"
-            >{{ post.title }} - {{ post.author }}</a
+            >{{ post.title }}</a
           >
+          - {{ post.author }}
+          - {{ post.date_updated|date:"D d M H:i" }}
+          {% if user.is_authenticated %}
+          - <a href="{% url 'edit_post' post.pk %}">(Edit)</a>
+          <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
+          {% endif %}
         </h3>
-        <a href="{% url 'edit_post' post.pk %}">Edit</a>
       </div>
-      <p class="post-excerpt">{{ post.content|truncatewords:5 }}</p>
-      <p class="post-date">{{ post.date_updated|date:"D d M H:i" }}</p>
+      <br>
+      <p class="post-excerpt">{{ post.content|truncatewords:50 }}</p>
     </li>
     {% empty %}
     <li>No posts available.</li>

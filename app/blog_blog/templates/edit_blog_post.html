@@ -3,6 +3,7 @@
 
 {% block content %}
 <main>
+  {% if user.is_authenticated %}
   <h1>Edit your post</h1>
 
     <form method="post" class="form-group">
@@ -10,6 +11,9 @@
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+  {% else %}
+    <h1>Log in to edit your post</h1>
+  {% endif %}
   
 </main>
 {% endblock %}

@@ -2,6 +2,7 @@
 {% block title %}Blogging{% endblock %} 
 {% block content %}
 <main>
+  {% if user.is_authenticated %}
   <h1>Delete Post</h1>
   <article>
     <h2>{{ post.title }}</h2>
@@ -18,5 +19,9 @@
     {% csrf_token %}
     <button type="submit" class="btn btn-primary">Delete</button>
   </form>
+  {% else %}
+  <h1>Access Denied</h1>
+  <p>You are not authorized to delete this post.</p>
+  {% endif %}
 </main>
 {% endblock %}
