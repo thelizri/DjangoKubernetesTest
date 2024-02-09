@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: django-container
-        image: thelizri432/django:v4
+        image: thelizri432/django:v5
         ports:
         - containerPort: 8000 
