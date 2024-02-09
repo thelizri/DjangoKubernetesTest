@@ -12,8 +12,10 @@
     </article>
 
     <a class="btn btn-dark" href="{% url "index" %}">Back</a>
-    {% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
     <a class="btn btn-dark" href="{% url 'edit_post' post.pk %}">Edit</a>
+    {% endif %}
+    {% if user.id == post.author.id or user.is_superuser %}
     <a class="btn btn-dark" href="{% url 'delete_post' post.pk %}">Remove</a>
     {% endif %}
 

@@ -13,8 +13,10 @@
           >
           - {{ post.author }}
           - {{ post.date_updated|date:"D d M H:i" }}
-          {% if user.is_authenticated %}
+          {% if user.id == post.author.id %}
           - <a href="{% url 'edit_post' post.pk %}">(Edit)</a>
+          {% endif %}
+          {% if user.id == post.author.id or user.is_superuser %}
           <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
           {% endif %}
         </h3>
