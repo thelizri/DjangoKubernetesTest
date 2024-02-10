@@ -1,32 +1,43 @@
 {% extends "base.html" %}
 {% block title %}Blog Posts{% endblock %} 
 {% block content %}
+
+
+{% include "partials/header.html" %}
+
 <main>
-  <h1>Blog Posts</h1>
-  <ul>
-    {% for post in object_list %}
-    <li class="post-item">
-      <div>
-        <h4 class="d-inline">
-          <a href="{% url 'post' post.pk %}"
-            >{{ post.title }}</a
-          >
-          - {{ post.author }}
-          - {{ post.date_updated|date:"D d M H:i" }}
-          {% if user.id == post.author.id %}
-          - <a href="{% url 'edit_post' post.pk %}">(Edit)</a>
-          {% endif %}
-          {% if user.id == post.author.id or user.is_superuser %}
-          <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
-          {% endif %}
-        </h3>
+  <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+              {% for post in object_list %}
+              <!-- Post preview-->
+              <div class="post-preview">
+                  <a href="{% url 'post' post.pk %}">
+                      <h2 class="post-title">{{ post.title }}</h2>
+                      {% if post.subtitle %}
+                      <h3 class="post-subtitle">{{ post.subtitle }}</h3>
+                      {% endif %}
+                  </a>
+                  <p class="post-meta">
+                      Posted by
+                      <a href="#!">{{ post.author }}</a>
+                      on {{ post.date_updated|date:"F d, Y" }}
+                      {% if user.id == post.author.id %}
+                      - <a href="{% url 'edit_post' post.pk %}">(Edit)</a>
+                      {% endif %}
+                      {% if user.id == post.author.id or user.is_superuser %}
+                      - <a href="{% url 'delete_post' post.pk %}">(Delete)</a>
+                      {% endif %}
+                  </p>
+                  <p>{{ post.content|truncatewords:50 }}</p>
+              </div>
+              <!-- Divider-->
+              <hr class="my-4" />
+              {% empty %}
+              <p>No posts available.</p>
+              {% endfor %}
+          </div>
       </div>
-      <br>
-      <p class="post-excerpt">{{ post.content|truncatewords:50 }}</p>
-    </li>
-    {% empty %}
-    <li>No posts available.</li>
-    {% endfor %}
-  </ul>
+  </div>
 </main>
 {% endblock %}

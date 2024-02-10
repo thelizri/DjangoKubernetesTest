@@ -2,22 +2,25 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-<main>
-    <article>
-        <h2>{{ post.title }}</h2>
-        <p class="meta">Posted by <span class="author">{{ post.author }}</span> on <span class="date">Date {{ post.date_created|date:"D d M H:i" }}</span></p>
-        <section class="content">
-            <p>{{ post.content }}</p>
-        </section>
-    </article>
+<div class="container">
+    <main>
+        <article>
+            <h2>{{ post.title }}</h2>
+            <p class="meta">Posted by <span class="author">{{ post.author }}</span> on <span class="date">Date {{ post.date_created|date:"D d M H:i" }}</span></p>
+            <section class="content">
+                <p>{{ post.content }}</p>
+            </section>
+        </article>
 
-    <a class="btn btn-dark" href="{% url "index" %}">Back</a>
-    {% if user.id == post.author.id %}
-    <a class="btn btn-dark" href="{% url 'edit_post' post.pk %}">Edit</a>
-    {% endif %}
-    {% if user.id == post.author.id or user.is_superuser %}
-    <a class="btn btn-dark" href="{% url 'delete_post' post.pk %}">Remove</a>
-    {% endif %}
 
-</main>
+        <a class="btn btn-dark" href="{% url "index" %}">Back</a>
+        {% if user.id == post.author.id %}
+        <a class="btn btn-dark" href="{% url 'edit_post' post.pk %}">Edit</a>
+        {% endif %}
+        {% if user.id == post.author.id or user.is_superuser %}
+        <a class="btn btn-dark" href="{% url 'delete_post' post.pk %}">Remove</a>
+        {% endif %}
+
+    </main>
+</div>
 {% endblock %}
