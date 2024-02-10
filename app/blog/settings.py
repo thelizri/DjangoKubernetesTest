@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "blog_blog",
     "django_prometheus",
     "authentication",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [

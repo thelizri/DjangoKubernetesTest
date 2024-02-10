@@ -2,12 +2,13 @@
 {% block title %}Blogging{% endblock %} 
 
 {% block content %}
-<main>
+<main class="container">
   {% if user.is_authenticated %}
   <h1>Write your post</h1>
-
+  
   <form method="post" class="form-group">
       {% csrf_token %}
+      {{ form.media }}
       {{ form.as_p }}
       <button type="submit" class="btn btn-primary">Submit</button>
   </form>

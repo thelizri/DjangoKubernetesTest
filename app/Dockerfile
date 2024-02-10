@@ -11,6 +11,7 @@ COPY . /app
 RUN pip install django
 RUN pip install whitenoise
 RUN pip install django-prometheus
+RUN pip install django-ckeditor
 
 # Make port 8000 available to the world outside this container
 EXPOSE 8000
