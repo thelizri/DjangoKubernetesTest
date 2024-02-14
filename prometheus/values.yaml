@@ -52,6 +52,12 @@ configmapReload:
     ##
     enabled: true
 
+    prometheusSpec:
+      serviceMonitorSelector:
+        matchLabels:
+          app: external-application
+
+
     ## configmap-reload container name
     ##
     name: configmap-reload
@@ -1160,6 +1166,10 @@ serverFiles:
         metrics_path: '/metrics'
         static_configs:
           - targets: ['william-result.discworld.cc']
+      - job_name: 'bastion' # Added by Karlan
+        metrics_path: '/metrics'
+        static_configs:
+          - targets: ['172.16.1.195:9090']
 
 # adds additional scrape configs to prometheus.yml
 # must be a string so you have to add a | after extraScrapeConfigs:
