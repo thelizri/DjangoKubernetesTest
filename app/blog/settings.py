@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "authentication",
     "ckeditor",
     "charts",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
