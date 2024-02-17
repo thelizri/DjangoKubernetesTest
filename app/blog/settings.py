@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from dotenv import load_dotenv  # for python-dotenv method
+
+load_dotenv()  # for python-dotenv method
 from pathlib import Path
 import os
 
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
     "django_prometheus",
     "authentication",
     "ckeditor",
+    "charts",
 ]
 
 MIDDLEWARE = [
