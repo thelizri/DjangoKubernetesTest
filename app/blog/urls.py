@@ -8,4 +8,5 @@ urlpatterns = [
     path("members/", include("authentication.urls"), name="auth"),
     path("", include("blog_blog.urls"), name="blog"),
     path("charts/", include("charts.urls"), name="charts"),
+    path("portfolio/", include("portfolio.urls"), name="portfolio"),
 ]
