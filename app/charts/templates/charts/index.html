@@ -1,0 +1,98 @@
+{% extends 'charts/base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="chart-container">
+          <canvas id="tempChart"></canvas>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="chart-container">
+          <canvas id="humidityChart"></canvas>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="chart-container">
+          <canvas id="lightChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const tempCtx = document.getElementById('tempChart').getContext('2d');
+  const humidityCtx = document.getElementById('humidityChart').getContext('2d');
+  const lightCtx = document.getElementById('lightChart').getContext('2d');
+
+  var timeLabels = JSON.parse('{{ time_labels|safe }}');
+  var temperatures = JSON.parse('{{ temperatures|safe }}');
+  var humidity = JSON.parse('{{ humidity|safe }}');
+  var light = JSON.parse('{{ light|safe }}');
+
+  new Chart(tempCtx, {
+    type: 'line',
+    data: {
+      labels: timeLabels,
+      datasets: [{
+        label: 'Temperature (F)',
+        data: temperatures,
+        borderWidth: 1,
+        borderColor: 'rgb(255, 99, 132)', // Example color
+        backgroundColor: 'rgba(255, 99, 132, 0.2)', // Example color
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  new Chart(humidityCtx, {
+    type: 'line',
+    data: {
+      labels: timeLabels,
+      datasets: [{
+        label: 'Humidity (%)',
+        data: humidity,
+        borderWidth: 1,
+        borderColor: 'rgb(54, 162, 235)', // Example color
+        backgroundColor: 'rgba(54, 162, 235, 0.2)', // Example color
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  new Chart(lightCtx, {
+    type: 'line',
+    data: {
+      labels: timeLabels,
+      datasets: [{
+        label: 'Light (Lux)',
+        data: light,
+        borderWidth: 1,
+        borderColor: 'rgb(255, 206, 86)', // Example color
+        backgroundColor: 'rgba(255, 206, 86, 0.2)', // Example color
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}
