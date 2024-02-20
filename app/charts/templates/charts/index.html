@@ -2,19 +2,27 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="chart-container">
           <canvas id="tempChart"></canvas>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="chart-container">
           <canvas id="humidityChart"></canvas>
         </div>
       </div>
-      <div class="col-md-4">
+      
+    </div>
+    <div class="row">
+      <div class="col-md-6">
         <div class="chart-container">
           <canvas id="lightChart"></canvas>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="chart-container">
+          <canvas id="packetChart"></canvas>
         </div>
       </div>
     </div>
@@ -26,11 +34,13 @@
   const tempCtx = document.getElementById('tempChart').getContext('2d');
   const humidityCtx = document.getElementById('humidityChart').getContext('2d');
   const lightCtx = document.getElementById('lightChart').getContext('2d');
+  const packetCtx = document.getElementById('packetChart').getContext('2d');
 
   var timeLabels = JSON.parse('{{ time_labels|safe }}');
   var temperatures = JSON.parse('{{ temperatures|safe }}');
   var humidity = JSON.parse('{{ humidity|safe }}');
   var light = JSON.parse('{{ light|safe }}');
+  var packet_number = JSON.parse('{{ packet_number|safe }}');
 
   new Chart(tempCtx, {
     type: 'line',
@@ -84,6 +94,27 @@
         borderWidth: 1,
         borderColor: 'rgb(255, 206, 86)', // Example color
         backgroundColor: 'rgba(255, 206, 86, 0.2)', // Example color
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  new Chart(packetCtx, {
+    type: 'line',
+    data: {
+      labels: timeLabels,
+      datasets: [{
+        label: 'Packet number',
+        data: light,
+        borderWidth: 1,
+        borderColor: 'rgb(0, 163, 108)', // Example color
+        backgroundColor: 'rgba(0, 163, 108, 0.2)', // Example color
       }]
     },
     options: {
