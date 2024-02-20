@@ -19,4 +19,4 @@ class SensorData(models.Model):
     )  # External sensor reading
 
     def __str__(self):
-        return f"Packet #{self.packet_number} from Node {self.node}"
+        return f"#{self.packet_number} from Node {self.node}"

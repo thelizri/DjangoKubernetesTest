@@ -1,46 +1,84 @@
 {% extends 'charts/base.html' %}
+
+{% block style %}
+<style>
+.h-100 {
+  height: 100%;
+}
+
+.h-50 {
+  height: 50vh; /* This will make each row take up half the viewport height */
+}
+
+.chart-container {
+  height: 100%;
+}
+</style>
+{% endblock %}
+
+
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="chart-container">
-          <canvas id="tempChart"></canvas>
-        </div>
+<div class="container-fluid h-100">
+  <div class="row h-50">
+    <div class="col-md-6">
+      <div class="chart-container h-100">
+        <canvas id="tempChart"></canvas>
       </div>
-      <div class="col-md-6">
-        <div class="chart-container">
-          <canvas id="humidityChart"></canvas>
-        </div>
-      </div>
-      
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="chart-container">
-          <canvas id="lightChart"></canvas>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="chart-container">
-          <canvas id="packetChart"></canvas>
-        </div>
+    <div class="col-md-6">
+      <div class="chart-container h-100">
+        <canvas id="humidityChart"></canvas>
       </div>
     </div>
   </div>
+  <div class="row h-50">
+    <div class="col-md-6">
+      <div class="chart-container h-100">
+        <canvas id="lightChart"></canvas>
+      </div>
+    </div>
+    <div class="col-md-6 h-100">
+      <h2>Packet Number</h2>
+      <div class="overflow-auto" style="max-height: 50vh;"> <!-- Changed to overflow-auto and set max-height to 50vh -->
+        <ul class="list-group">
+          {% for i in packet_string reversed %}
+          <li class="list-group-item">{{ i }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
 
+{% block script %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
   const tempCtx = document.getElementById('tempChart').getContext('2d');
   const humidityCtx = document.getElementById('humidityChart').getContext('2d');
   const lightCtx = document.getElementById('lightChart').getContext('2d');
-  const packetCtx = document.getElementById('packetChart').getContext('2d');
 
   var timeLabels = JSON.parse('{{ time_labels|safe }}');
   var temperatures = JSON.parse('{{ temperatures|safe }}');
   var humidity = JSON.parse('{{ humidity|safe }}');
   var light = JSON.parse('{{ light|safe }}');
-  var packet_number = JSON.parse('{{ packet_number|safe }}');
+
+  // Function to get the last 100 data points
+  function getLastNDataPoints(dataArray, n) {
+    const dataLength = dataArray.length;
+    const startIndex = dataLength > n ? dataLength - n : 0;
+    return dataArray.slice(startIndex, dataLength);
+  }
+
+  // Adjust your timeLabels and datasets here
+  /*
+  timeLabels = getLastNDataPoints(timeLabels, 50);
+  temperatures = getLastNDataPoints(temperatures, 50);
+  humidity = getLastNDataPoints(humidity, 50);
+  light = getLastNDataPoints(light, 50);
+  packet_number = getLastNDataPoints(packet_number, 50);
+  */
 
   new Chart(tempCtx, {
     type: 'line',
@@ -57,7 +95,23 @@
     options: {
       scales: {
         y: {
-          beginAtZero: true
+          suggestedMin: 25,
+          suggestedMax: 125
+        },
+        x: {
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 10, // Adjust this number based on your preference
+            maxRotation: 50,
+            minRotation: 50
+          }
+        },
+        
+      },
+      plugins: {
+        title: {
+            display: true,
+            text: 'Temperature (F) vs Time'
         }
       }
     }
@@ -78,8 +132,17 @@
     options: {
       scales: {
         y: {
-          beginAtZero: true
-        }
+          suggestedMin: 15,
+          suggestedMax: 85
+        },
+        x: {
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 10, // Adjust this number based on your preference
+            maxRotation: 50,
+            minRotation: 50
+          }
+        },
       }
     }
   });
@@ -99,31 +162,21 @@
     options: {
       scales: {
         y: {
-          beginAtZero: true
-        }
+          suggestedMin: 10,
+          suggestedMax: Math.max(...light) + 100
+        },
+        x: {
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 10, // Adjust this number based on your preference
+            maxRotation: 50,
+            minRotation: 50
+          }
+        },
       }
     }
   });
 
-  new Chart(packetCtx, {
-    type: 'line',
-    data: {
-      labels: timeLabels,
-      datasets: [{
-        label: 'Packet number',
-        data: light,
-        borderWidth: 1,
-        borderColor: 'rgb(0, 163, 108)', // Example color
-        backgroundColor: 'rgba(0, 163, 108, 0.2)', // Example color
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
+  
 </script>
 {% endblock %}
