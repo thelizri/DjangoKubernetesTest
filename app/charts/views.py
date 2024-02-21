@@ -13,13 +13,14 @@ def query_all():
     return SensorData.objects.all().order_by("time")
 
 
-def query_latest_hour(n=1):
-    time = timezone.now() - timedelta(hours=n)
-    return SensorData.objects.filter(time__gte=time).order_by("time")
-
-
-def query_latest_day(n=1):
-    time = timezone.now() - timedelta(days=n)
+def query_data(days=0, seconds=0, minutes=0, hours=0, weeks=0):
+    time = timezone.now() - timedelta(
+        days=days,
+        seconds=seconds,
+        minutes=minutes,
+        hours=hours,
+        weeks=weeks,
+    )
     return SensorData.objects.filter(time__gte=time).order_by("time")
 
 
@@ -56,13 +57,23 @@ def index(request):
     return chart_view(request, queryset)
 
 
+def data_by_minute(request, minutes=1):
+    queryset = query_data(minutes=minutes)
+    return chart_view(request, queryset)
+
+
 def data_by_hour(request, hours=1):
-    queryset = query_latest_hour(hours)
+    queryset = query_data(hours=hours)
     return chart_view(request, queryset)
 
 
 def data_by_day(request, days=1):
-    queryset = query_latest_day(days)
+    queryset = query_data(days=days)
+    return chart_view(request, queryset)
+
+
+def data_by_week(request, weeks=1):
+    queryset = query_data(weeks=weeks)
     return chart_view(request, queryset)
 
 
