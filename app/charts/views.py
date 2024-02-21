@@ -26,7 +26,7 @@ def query_data(days=0, seconds=0, minutes=0, hours=0, weeks=0):
 
 def chart_view(request, queryset):
     # Prepare data for the chart
-    time_labels = [data.time.strftime("%Y-%m-%d %H:%M:%S") for data in queryset]
+    time_labels = [data.time.strftime("%m-%d %H:%M:%S") for data in queryset]
     temperatures = [data.temperature for data in queryset]
     humidity = [data.humidity for data in queryset]
     light = [data.light for data in queryset]

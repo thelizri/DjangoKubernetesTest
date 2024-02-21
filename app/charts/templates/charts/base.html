@@ -21,6 +21,28 @@
   </head>
   <body>
 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Dropdown
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" href="{% url 'chart_index' %}">All</a></li>
+                <li><a class="dropdown-item" href="{% url 'data_by_week' 4 %}">Month</a></li>
+                <li><a class="dropdown-item" href="{% url 'data_by_week' 1 %}">Week</a></li>
+                <li><a class="dropdown-item" href="{% url 'data_by_day' 1 %}">Day</a></li>
+                <li><a class="dropdown-item" href="{% url 'data_by_hour' 1 %}">Hour</a></li>
+                <li><a class="dropdown-item" href="{% url 'data_by_minute' 10 %}">Minute</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     {% block content %}Hello World{% endblock %}
 
     <!-- Bootstrap core JS-->
