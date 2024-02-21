@@ -4,13 +4,26 @@ from .models import SensorData
 from .serializers import SensorDataSerializer
 from django.core.serializers.json import DjangoJSONEncoder
 import json
+from django.utils import timezone
+from datetime import timedelta
 
 
-# Create your views here.
-def index(request):
-    # Fetch sensor data
-    queryset = SensorData.objects.all().order_by("time")
+# Utility function to query all sensor data
+def query_all():
+    return SensorData.objects.all().order_by("time")
 
+
+def query_latest_hour(n=1):
+    time = timezone.now() - timedelta(hours=n)
+    return SensorData.objects.filter(time__gte=time).order_by("time")
+
+
+def query_latest_day(n=1):
+    time = timezone.now() - timedelta(days=n)
+    return SensorData.objects.filter(time__gte=time).order_by("time")
+
+
+def chart_view(request, queryset):
     # Prepare data for the chart
     time_labels = [data.time.strftime("%Y-%m-%d %H:%M:%S") for data in queryset]
     temperatures = [data.temperature for data in queryset]
@@ -35,6 +48,22 @@ def index(request):
         "packet_string": packet_string,
     }
     return render(request, "charts/index.html", context)
+
+
+# Create your views here.
+def index(request):
+    queryset = query_all()
+    return chart_view(request, queryset)
+
+
+def data_by_hour(request, hours=1):
+    queryset = query_latest_hour(hours)
+    return chart_view(request, queryset)
+
+
+def data_by_day(request, days=1):
+    queryset = query_latest_day(days)
+    return chart_view(request, queryset)
 
 
 class SensorDataViewSet(viewsets.ModelViewSet):
