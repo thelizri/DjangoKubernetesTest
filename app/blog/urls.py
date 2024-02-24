@@ -1,12 +1,10 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from .views import Index, PostView, AddPost, EditPost, DeletePost
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("prometheus/", include("django_prometheus.urls")),
-    path("members/", include("django.contrib.auth.urls")),
-    path("members/", include("authentication.urls"), name="auth"),
-    path("", include("blog_blog.urls"), name="blog"),
-    path("charts/", include("charts.urls"), name="charts"),
-    path("portfolio/", include("portfolio.urls"), name="portfolio"),
+    path("", Index.as_view(), name="index"),
+    path("post/<int:pk>/", PostView.as_view(), name="post"),
+    path("add/", AddPost.as_view(), name="add_post"),
+    path("edit/<int:pk>", EditPost.as_view(), name="edit_post"),
+    path("del/<int:pk>", DeletePost.as_view(), name="delete_post"),
 ]
