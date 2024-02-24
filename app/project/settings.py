@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     "blog",
     "charts",
     "portfolio",
-    "chat",
 ]
 
 MIDDLEWARE = [
