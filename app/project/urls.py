@@ -9,4 +9,5 @@ urlpatterns = [
     path("", include("blog.urls"), name="blog"),
     path("charts/", include("charts.urls"), name="charts"),
     path("portfolio/", include("portfolio.urls"), name="portfolio"),
+    path("chat/", include("chat.urls"), name="chat"),
 ]

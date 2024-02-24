@@ -33,10 +33,12 @@ INSTALLED_APPS = [
     "rest_framework",
     "authentication",
     "ckeditor",
+    "channels",
     # Local apps
     "blog",
     "charts",
     "portfolio",
+    "chat",
 ]
 
 MIDDLEWARE = [
