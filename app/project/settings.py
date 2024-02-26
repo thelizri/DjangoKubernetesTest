@@ -28,12 +28,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "whitenoise.runserver_nostatic",
+    "daphne",  # new
     "django.contrib.staticfiles",
     # Third party apps
     "django_prometheus",
     "rest_framework",
     "authentication",
     "ckeditor",
+    "channels",
     # Local apps
     "blog",
     "charts",
@@ -72,6 +74,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "project.wsgi.application"
+ASGI_APPLICATION = "project.asgi.application"
 
 
 # Database

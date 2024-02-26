@@ -97,3 +97,16 @@ new Chart(lightCtx, {
     }
   }
 });
+
+// Asynchronous data retrieval
+var socket = new WebSocket('ws://' + window.location.host + '/ws/chart/');
+
+socket.onmessage = function(e) {
+    var data = JSON.parse(e.data);
+    var message = data.message;
+    // Update your chart using the message data
+};
+
+socket.onclose = function(e) {
+    console.error('Chat socket closed unexpectedly');
+};
