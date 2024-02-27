@@ -26,11 +26,14 @@ class SensorData(models.Model):
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
 
 
 @receiver(post_save, sender=SensorData)
 def sensor_data_post_save(sender, instance, created, *args, **kwargs):
     if created:  # Only proceed if a new instance was created
+        channel_layer = get_channel_layer()
         message = {
             "packet_string": str(instance),
             "time_labels": instance.time.strftime("%m-%d %H:%M:%S"),
@@ -38,4 +41,6 @@ def sensor_data_post_save(sender, instance, created, *args, **kwargs):
             "humidity": instance.humidity,
             "light": instance.light,
         }
-        print(message)
+        async_to_sync(channel_layer.group_send)(
+            "sensor_data", {"type": "sensor_data", "message": message}
+        )
