@@ -1,9 +1,10 @@
 import requests
 import random
 from datetime import datetime
+from time import sleep
 
 # Replace this with the actual URL of your API
-API_URL = "http://localhost:8000/charts/api/data/"
+API_URL = "http://william.discworld.cc/charts/api/data/"
 
 
 def get_dummy_data(packet_number):
@@ -17,7 +18,7 @@ def get_dummy_data(packet_number):
     return dummy_data
 
 
-for i in range(400, 600):
+for i in range(20):
     # Send the POST request
     dummy_data = get_dummy_data(i)
     response = requests.post(API_URL, json=dummy_data)
@@ -30,3 +31,5 @@ for i in range(400, 600):
         print("Failed to post data.")
         print("Status Code:", response.status_code)
         print("Response:", response.text)
+
+    sleep(3)
