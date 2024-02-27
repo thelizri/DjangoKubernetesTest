@@ -30,9 +30,7 @@ def chart_view(request, queryset):
     temperatures = [data.temperature for data in queryset]
     humidity = [data.humidity for data in queryset]
     light = [data.light for data in queryset]
-    packet_string = [
-        data.time.strftime("%Y-%m-%d %H:%M:%S") + " " + str(data) for data in queryset
-    ]
+    packet_string = [str(data) for data in queryset]
 
     # Serialize data to JSON format
     time_labels_json = json.dumps(time_labels, cls=DjangoJSONEncoder)

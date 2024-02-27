@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class SensorData(models.Model):
@@ -19,4 +20,22 @@ class SensorData(models.Model):
     )  # External sensor reading
 
     def __str__(self):
-        return f"#{self.packet_number} from Node {self.node}"
+        local_time = timezone.localtime(self.time)
+        return f"Date: {local_time.strftime('%Y-%m-%d %H:%M:%S')}, Packet: {self.packet_number}, Node: {self.node}, Temp: {self.temperature}°F, Humid: {self.humidity}%, Light: {self.light} lx"
+
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+@receiver(post_save, sender=SensorData)
+def sensor_data_post_save(sender, instance, created, *args, **kwargs):
+    if created:  # Only proceed if a new instance was created
+        message = {
+            "packet_string": str(instance),
+            "time_labels": instance.time.strftime("%m-%d %H:%M:%S"),
+            "temperature": instance.temperature,
+            "humidity": instance.humidity,
+            "light": instance.light,
+        }
+        print(message)
