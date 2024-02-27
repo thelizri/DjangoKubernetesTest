@@ -4,7 +4,7 @@ from datetime import datetime
 from time import sleep
 
 # Replace this with the actual URL of your API
-API_URL = "http://localhost:8000/charts/api/data/"
+API_URL = "http://william.discworld.cc/charts/api/data/"
 
 
 def get_dummy_data(packet_number):
