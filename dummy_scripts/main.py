@@ -18,7 +18,7 @@ def get_dummy_data(packet_number):
     return dummy_data
 
 
-for i in range(3):
+for i in range(20):
     # Send the POST request
     dummy_data = get_dummy_data(i)
     response = requests.post(API_URL, json=dummy_data)
@@ -32,4 +32,4 @@ for i in range(3):
         print("Status Code:", response.status_code)
         print("Response:", response.text)
 
-    sleep(10)
+    sleep(3)

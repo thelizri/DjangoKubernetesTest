@@ -7,7 +7,7 @@ var temperatures = JSON.parse('{{ temperatures|safe }}');
 var humidity = JSON.parse('{{ humidity|safe }}');
 var light = JSON.parse('{{ light|safe }}');
 
-new Chart(tempCtx, {
+var tempChart = new Chart(tempCtx, {
   type: 'line',
   data: {
     labels: timeLabels,
@@ -38,7 +38,7 @@ new Chart(tempCtx, {
   }
 });
 
-new Chart(humidityCtx, {
+var humidityChart = new Chart(humidityCtx, {
   type: 'line',
   data: {
     labels: timeLabels,
@@ -68,7 +68,7 @@ new Chart(humidityCtx, {
   }
 });
 
-new Chart(lightCtx, {
+var lightChart = new Chart(lightCtx, {
   type: 'line',
   data: {
     labels: timeLabels,
@@ -101,13 +101,30 @@ new Chart(lightCtx, {
 // Asynchronous data retrieval
 var socket = new WebSocket('ws://' + window.location.host + '/ws/chart/');
 
-socket.onmessage = function(e) {
-    var data = JSON.parse(e.data);
-    var message = data.message;
-    console.log(message);
-    // Update your chart using the message data
+socket.onmessage = function (event) {
+  var data = JSON.parse(event.data);
+  var message = data.message;
+
+  // Assuming 'message' contains new data for each chart
+  timeLabels.push(message.time);
+  temperatures.push(message.temperature);
+  humidity.push(message.humidity);
+  light.push(message.light);
+  // Update your chart using the message data
+  // Update the charts
+  updateChartData(tempChart, timeLabels, temperatures);
+  updateChartData(humidityChart, timeLabels, humidity);
+  updateChartData(lightChart, timeLabels, light);
 };
 
-socket.onclose = function(e) {
-    console.error('Chat socket closed unexpectedly');
+socket.onclose = function (e) {
+  console.error('Chat socket closed unexpectedly');
 };
+
+function updateChartData(chart, labelSet, dataSet) {
+  chart.data.labels = labelSet;
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data = dataSet;
+  });
+  chart.update();
+}

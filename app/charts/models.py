@@ -35,8 +35,8 @@ def sensor_data_post_save(sender, instance, created, *args, **kwargs):
     if created:  # Only proceed if a new instance was created
         channel_layer = get_channel_layer()
         message = {
-            "packet_string": str(instance),
-            "time_labels": instance.time.strftime("%m-%d %H:%M:%S"),
+            "packet": str(instance),
+            "time": instance.time.strftime("%m-%d %H:%M:%S"),
             "temperature": instance.temperature,
             "humidity": instance.humidity,
             "light": instance.light,
