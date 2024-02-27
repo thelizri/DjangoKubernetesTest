@@ -1,6 +1,7 @@
 const tempCtx = document.getElementById('tempChart').getContext('2d');
 const humidityCtx = document.getElementById('humidityChart').getContext('2d');
 const lightCtx = document.getElementById('lightChart').getContext('2d');
+const packetList = document.getElementById("packetList");
 
 var timeLabels = JSON.parse('{{ time_labels|safe }}');
 var temperatures = JSON.parse('{{ temperatures|safe }}');
@@ -115,6 +116,15 @@ socket.onmessage = function (event) {
   updateChartData(tempChart, timeLabels, temperatures);
   updateChartData(humidityChart, timeLabels, humidity);
   updateChartData(lightChart, timeLabels, light);
+
+  // Create a new <li> element
+  var newListItem = document.createElement("li");
+  newListItem.classList.add("list-group-item");
+  newListItem.textContent = message.packet; // Or any other content/formatting you want
+
+  // Append the new <li> to the <ul>
+  packetList.prepend(newListItem); // Use prepend to add it as the first item, or use appendChild to add it to the end
+
 };
 
 socket.onclose = function (e) {
