@@ -76,7 +76,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "project.wsgi.application"
 ASGI_APPLICATION = "project.asgi.application"
 
-if DEBUG:
+if DEBUG is True:
     CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 else:
     CHANNEL_LAYERS = {
