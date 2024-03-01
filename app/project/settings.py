@@ -88,8 +88,8 @@ else:
         },
     }
 
-    # Database
-    # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 if DEBUG is True:
     DATABASES = {
