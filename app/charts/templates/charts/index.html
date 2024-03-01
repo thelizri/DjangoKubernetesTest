@@ -11,6 +11,11 @@
   height: 100vh;
 }
 
+.packets {
+  max-height: 50vh;
+  min-width: 800px;
+}
+
 </style>
 {% endblock %}
 
@@ -37,7 +42,7 @@
     </div>
     <div class="col border border-secondary border-2  m-2">
       <h2>Packets</h2>
-      <div class="overflow-auto border border-dark border-1" style="max-height: 45vh;"> <!-- Changed to overflow-auto and set max-height to 50vh -->
+      <div class="overflow-auto border border-dark border-1 packets"> <!-- Changed to overflow-auto and set max-height to 50vh -->
         <ul id="packetList" class="list-group">
           {% for i in packet_string reversed %}
           <li class="list-group-item">{{ i }}</li>
