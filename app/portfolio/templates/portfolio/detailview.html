@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+{% extends "portfolio/base.html" %}
+{% load static %}
+{% block title %}Phantom{% endblock %}
+{% block css %}
+	<link rel="stylesheet" href="{% static 'portfolio/assets/css/main.css' %}" />
+	<noscript><link rel="stylesheet" href="{% static 'portfolio/assets/css/noscript.css' %}" /></noscript>
+{% endblock %}
+{% block content %}
+<div id="main">
+	<div class="inner">
+		<h1>{{ portfolio.title }}</h1>
+		<span class="image main"><img src="{{ portfolio.image.url }}" alt="" /></span>
+		<p>{{ portfolio.description }}</p>
+	</div>
+</div>
+{% endblock %}

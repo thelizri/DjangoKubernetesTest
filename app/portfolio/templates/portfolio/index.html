@@ -14,12 +14,12 @@
 				<p>Etiam quis viverra lorem, in semper lorem. Sed nisl arcu euismod sit amet nisi euismod sed cursus arcu elementum ipsum arcu vivamus quis venenatis orci lorem ipsum et magna feugiat veroeros aliquam. Lorem ipsum dolor sit amet nullam dolore.</p>
 			</header>
 			<section class="tiles">
-				{% for tile in tiles %}
-                    <article class="{{ tile.style }}"> <!-- Consider dynamically assigning the style class if needed -->
+				{% for tile in portfolio_list %}
+                    <article class=""> <!-- Consider dynamically assigning the style class if needed -->
                         <span class="image">
-                            <img src="{% static tile.image_url %}" alt="Picture" />
+                            <img src="{{ tile.image.url }}" alt="Picture" />
                         </span>
-                        <a href="{% url tile.link_url %}">
+                        <a href="{% url 'portfolio-detail-view' tile.pk %}">
                             <h2>{{ tile.title }}</h2>
                             <div class="content">
                                 <p>{{ tile.description }}</p>
