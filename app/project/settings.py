@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     "django_prometheus",
     "rest_framework",
     "authentication",
-    "ckeditor",
     "channels",
     # Local apps
     "blog",

@@ -7,7 +7,6 @@ from django.views.generic import (
     DeleteView,
 )
 from .models import Post
-from .forms import BlogPostForm
 
 
 # Create your views here.
@@ -25,7 +24,7 @@ class PostView(DetailView):
 class AddPost(CreateView):
     model = Post
     template_name = "blog/add_blog_post.html"
-    form_class = BlogPostForm
+    fields = ["title", "content"]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -35,7 +34,7 @@ class AddPost(CreateView):
 class EditPost(UpdateView):
     model = Post
     template_name = "blog/edit_blog_post.html"
-    form_class = BlogPostForm
+    fields = ["title", "content"]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
