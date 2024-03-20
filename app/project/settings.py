@@ -103,8 +103,8 @@ else:
             "ENGINE": "django.db.backends.postgresql",
             "NAME": "postgres",
             "USER": "postgres",
-            "PASSWORD": "django_postgres",
-            "HOST": "postgres",  # Use the service name here
+            "PASSWORD": os.environ.get("POSTGRES_SECRET_KEY"),
+            "HOST": "my-postgres-cluster",  # Use the service name here
             "PORT": "5432",
         }
     }
@@ -148,6 +148,10 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# Media
+MEDIA_URL = "/media/"  # new
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # new
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -155,7 +159,3 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = "index"
-
-# Media
-MEDIA_URL = "/media/"  # new
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")  # new
