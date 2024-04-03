@@ -1,55 +1,23 @@
-apiVersion: v1
-items:
-- apiVersion: acid.zalan.do/v1
-  kind: postgresql
-  metadata:
-    annotations:
-      meta.helm.sh/release-name: ankra-generic-database
-      meta.helm.sh/release-namespace: db
-    creationTimestamp: "2024-03-26T13:35:07Z"
-    generation: 1
-    labels:
-      app.kubernetes.io/managed-by: Helm
-    name: postgres-service
-    namespace: django
-    resourceVersion: "86491475"
-    uid: d08f2e49-0e54-4172-b64c-71380c7dd964
-  spec:
-    connectionPooler:
-      mode: session
-      numberOfInstances: 2
-    databases:
-      mydb: postgres  # dbname: owner
-    enableConnectionPooler: true
-    enableLogicalBackup: true
-    enableReplicaConnectionPooler: true
-    numberOfInstances: 3
-    patroni:
-      pg_hba:
-      - local all all trust
-      - local replication standby trust
-      - host all  all 0.0.0.0/0  md5
-      - host replication standby 10.0.0.0/8 trust
-    postgresql:
-      parameters:
-        log_connections: "true"
-        log_destination: stderr
-        log_disconnections: "true"
-        log_min_duration_statement: 1s
-        log_statement: all
-        logging_collector: "false"
-        password_encryption: md5
-        wal_log_hints: "true"
-      version: "16"
-    teamId: ankra-generic-database
-    users:
-      postgres:
-      - superuser
-      - createdb
-    volume:
-      size: 10Gi
-  status:
-    PostgresClusterStatus: Creating
-kind: List
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
 metadata:
-  resourceVersion: ""
+  name: my-postgres-cluster
+  namespace: django
+spec:
+  teamId: "myteam"
+  volume:
+    size: 1Gi
+  numberOfInstances: 2
+  users:
+    postgres:
+    - superuser
+    - createdb
+  databases:
+    mydb: postgres
+  postgresql:
+    version: "16"
+  enableConnectionPooler: true
+  enableLogicalBackup: true
+  connectionPooler:
+    numberOfInstances: 2
+    mode: session
