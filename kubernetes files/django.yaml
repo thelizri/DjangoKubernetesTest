@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: django-container
-        image: thelizri432/django:zalando2
+        image: thelizri432/django:zalando3
         ports:
         - containerPort: 8000 
 ---
