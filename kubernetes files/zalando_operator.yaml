@@ -19,5 +19,5 @@ spec:
   enableConnectionPooler: true
   enableLogicalBackup: true
   connectionPooler:
-    numberOfInstances: 2
+    numberOfInstances: 1
     mode: session
