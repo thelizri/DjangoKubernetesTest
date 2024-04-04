@@ -46,7 +46,7 @@ spec:
     spec:
       containers:
       - name: redis
-        image: redis
+        image: index.docker.io/library/redis:latest
         ports:
         - containerPort: 6379
         volumeMounts:

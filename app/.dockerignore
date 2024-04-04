@@ -3,5 +3,4 @@
 .gitignore
 .env
 db.sqlite3
-datadump.json
 media/
