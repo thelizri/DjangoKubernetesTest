@@ -17,7 +17,6 @@ spec:
   postgresql:
     version: "16"
   enableConnectionPooler: true
-  enableLogicalBackup: true
   connectionPooler:
-    numberOfInstances: 1
+    numberOfInstances: 2
     mode: session
