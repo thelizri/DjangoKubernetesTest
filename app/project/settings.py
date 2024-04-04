@@ -104,8 +104,11 @@ else:
             "NAME": "postgres",
             "USER": "postgres",
             "PASSWORD": os.environ.get("POSTGRES_SECRET_KEY"),
-            "HOST": "my-postgres-cluster-pooler",  # Use the service name here
+            "HOST": "my-postgres-cluster",  # Use the service name here
             "PORT": "5432",
+            "OPTIONS": {
+                "sslmode": "require",
+            },
         }
     }
 
